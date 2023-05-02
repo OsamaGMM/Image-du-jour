@@ -1,0 +1,18 @@
+utilisateur
+
+image
+
+commentaire
+
+votre
+
+like <3
+
+
+Refs : 
+Pour mettre l'état aime dans firestore
+    - https://firebase.google.com/docs/firestore/manage-data/add-data#update_elements_in_an_array
+
+nombre de seconde : new date().getTime()
+
+vote : (map dans FS), object.values -- utiliser reduce()
