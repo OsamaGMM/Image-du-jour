@@ -1,12 +1,21 @@
 import { collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, setDoc, updateDoc } from "firebase/firestore";
-import { bd, collImages, collUtilisateurs } from "./init";
+import { bd, collComs, collImages, collUtilisateurs } from "./init";
 
     // lire une images
     export async function lireUneImage(jour) {
-        const idj = await getDoc(doc(bd, collImages, jour))
-        //Ajouster le tableau comme voulu et la retourner
-        //return idj;
+        const idjFS = await getDoc(doc(bd, collImages, jour))
+        const date = new Date().toLocaleDateString('fr-CA', { dateStyle: 'long' }) // Get the current date and format it as a string
+        return [{...idjFS.data(), date: date}]
     }
+
+    //Commentaire
+    
+    export async function lireLesCommentaires(idImage) {
+        const commsFS = await getDocs(collection(bd, collImages, idImage, collComs))
+        return commsFS.docs.map(doc => ({id: doc.id, ...doc.data()}))
+        //console.log(commsFS.docs.map(doc => ({id: doc.id, ...doc.data()})));
+    }
+    // lireLesCommentaires('20230426')
 
     //INSPIRATION
     // const dossiersFS = await getDocs(
