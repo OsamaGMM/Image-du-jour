@@ -2,14 +2,14 @@ import React from 'react'
 import Vote from './Vote'
 import './Commentaire.scss'
 
-function Commentaire({id, text, nomUtil, votes}) {
+function Commentaire({id, texte, nomUtil, votes}) {
 
   // console.log(vote);
   
   return (
     <div>
       <p>{nomUtil}</p>
-      <p>{text}</p>
+      <p>{texte}</p>
       <Vote votes={votes}/>
     </div>
   )

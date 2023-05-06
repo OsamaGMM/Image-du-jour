@@ -1,12 +1,27 @@
 .Appli{
-    height: 100vh;
-    display: flex;
 
-    
     .idj{
 
-        img,p{
-            margin: auto;
+        width: 20rem;
+        height: 20rem;
+        margin: auto;
+
+
+        .image{
+            img{
+
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                
+            }
+        }
+
+        .img-info{
+            width: 50%;
+            display: flex;
+
         }
     }
+
 }

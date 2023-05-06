@@ -14,7 +14,7 @@ export function observerEtatConnexion(mutateurUtilisateur) {
     onAuthStateChanged(auth, u => {
         if(u) {
             //créer le document correspondant à cet utilisateur dans Firestore
-            setDoc(doc(bd, 'utilisateurs-signets', u.uid), {
+            setDoc(doc(bd, 'utilisateurs', u.uid), {
                 nom: u.displayName,
                 courriel: u.email,
                 avatar: u.photoURL

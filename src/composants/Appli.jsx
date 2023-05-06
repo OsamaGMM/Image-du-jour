@@ -26,10 +26,12 @@ export default function Appli() {
     <div className="Appli">
       {imageDJ.map((image) => (
         <div key={image.url} className="idj">
-          <img src={image.url} alt={image.description} />
-          <p>{image.description}</p>
-          <p>{image.jaime.length}</p>
-          <p>{image.date}</p>
+          <div className="image"><img src={image.url} alt={image.description} /></div>
+          <div className="img-info">
+            <p>{image.description}</p>
+            <p>{image.jaime.length}</p>{/** envoyer dans le component aime */}
+            <p>{image.date}</p>
+          </div>
         </div>
       ))}
 

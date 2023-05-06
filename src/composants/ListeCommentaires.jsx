@@ -26,7 +26,7 @@ function ListeCommentaires() {
           <Commentaire 
             key={comm.id} 
             id={comm.id} 
-            text={comm.text} 
+            texte={comm.texte} 
             nomUtil={comm.nomUtil} 
             votes={comm.votes}
           />
