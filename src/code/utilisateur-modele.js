@@ -6,6 +6,7 @@ export function deconnexion() {
     auth.signOut();
 }
 
+
 export function connexion() {
     signInWithPopup(auth, googleAuth);
 }

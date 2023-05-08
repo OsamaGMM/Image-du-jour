@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import './ListeCommentaires.scss'
 import Commentaire from "./Commentaire"
 import { lireLesCommentaires } from "../code/image-modele";
+import { UtilisateurContext } from "./Appli";
 
 function ListeCommentaires() {
+  const utilisateur = useContext(UtilisateurContext)
 
   const [lesCommentaires, setLesCommentaires] = useState([])
+
 
   useEffect(() => {
     async function chercherLesCommentaires() {
@@ -16,9 +19,28 @@ function ListeCommentaires() {
     chercherLesCommentaires();
   }, []);
 
+  function ajouterUnCommentaire(){
+    
+  }
+
   return (
-    <div>
-      ListeCommentaire
+    <div className="ListeCommentaires">
+      {
+        //Son propre component eventuellement
+        utilisateur ? 
+
+        <div className="ajouterComm" style={{border : 'solid 1px red'}}>
+          <p>{utilisateur.displayName}</p>
+          <form action="" onSubmit={ajouterUnCommentaire}>
+            <input type="text" />
+          </form>
+        </div>
+        :
+        <div>
+          Connecter vous pour ecrire un commentaire
+        </div>
+      }
+      <div className="lesCommentaire">
       {
         (lesCommentaires.length !== 0) ?
 
@@ -34,7 +56,9 @@ function ListeCommentaires() {
         :
         <div>L'image n'a pas encore de commentaire</div>
       }
+      </div>
     </div>
+    
   )
 }
 

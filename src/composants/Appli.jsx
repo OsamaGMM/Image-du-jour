@@ -1,15 +1,26 @@
 import "./Appli.scss";
-//import Aime from './Aime';
+import Aime from './Aime';
 //import ControleDate from './ControleDate';
-//import Connexion from './Connexion';
+import Connexion from './Connexion';
 import ListeCommentaires from './ListeCommentaires';
-//import Utilisateur from './Utilisateur';
+import Utilisateur from './Utilisateur';
 //import imgTest from './imgTest.jpeg';
 import { lireUneImage } from "../code/image-modele";
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import { observerEtatConnexion } from "../code/utilisateur-modele";
+export const UtilisateurContext = createContext(null);
+
 
 export default function Appli() {
   //usecontext pour utilisateur
+
+  const [utilisateur, setUtilisateur] = useState(null);
+
+  useEffect(
+      () => observerEtatConnexion(setUtilisateur),
+      []
+  );
+  
   //usecontext pour le jour
   const [imageDJ, setImageDJ] = useState([]);
 
@@ -23,20 +34,33 @@ export default function Appli() {
   //console.log(imageDJ);
 
   return (
+
     <div className="Appli">
+    <UtilisateurContext.Provider value={utilisateur}>
+      {
+        //Si il un utilisateur est connecter on montre ce component sinon on montre la connexion
+        utilisateur ?
+          <Utilisateur/>
+        :
+        <Connexion/>
+      }
+
       {imageDJ.map((image) => (
         <div key={image.url} className="idj">
           <div className="image"><img src={image.url} alt={image.description} /></div>
           <div className="img-info">
-            <p>{image.description}</p>
-            <p>{image.jaime.length}</p>{/** envoyer dans le component aime */}
-            <p>{image.date}</p>
+            <span>{image.description}</span>
+            <Aime aimes={image.jaime.length}/>
+            <span>{image.date}</span>
           </div>
         </div>
       ))}
 
       <ListeCommentaires/>
 
+
+
+    </UtilisateurContext.Provider>
     </div>
   );
 }

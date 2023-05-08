@@ -1,10 +1,14 @@
 import './Connexion.scss'
+import btnGoogle from '../images/btn-connexion-google.png';
+import { connexion } from '../code/utilisateur-modele';
 
 function Connexion() {
   return (
     <div>
-      Connexion
-      / si le user est connecter il peut interagir avec le site
+      <button onClick={connexion} className='btn-google'>
+					<img src={btnGoogle} alt="Logo Google" />
+					Connexion avec Google
+				</button>
     </div>
   )
 }

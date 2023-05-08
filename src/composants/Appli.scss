@@ -18,8 +18,15 @@
         }
 
         .img-info{
-            width: 50%;
             display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            &.img-info > *{
+                padding: 8px 0px;
+            }
+            span:first-child{
+                width: 100%;
+            }
 
         }
     }
