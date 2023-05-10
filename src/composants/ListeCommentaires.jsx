@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import './ListeCommentaires.scss'
 import Commentaire from "./Commentaire"
-import { lireLesCommentaires } from "../code/image-modele";
+import { lireLesCommentaires, observer } from "../code/image-modele";
 import { UtilisateurContext } from "./Appli";
 
 function ListeCommentaires() {
@@ -10,14 +10,22 @@ function ListeCommentaires() {
   const [lesCommentaires, setLesCommentaires] = useState([])
 
 
+    // //Mettre le jour en param
+    // useEffect(() => {
+    //   async function chercherLesCommentaires() {
+    //     observer('20230508', setLesCommentaires)
+    //   }
+    //   chercherLesCommentaires();
+    // }, []);
+
   useEffect(() => {
     async function chercherLesCommentaires() {
       const comms = await lireLesCommentaires("20230426");
-      console.log(comms);
+      //console.log(comms);
       setLesCommentaires(comms);
     }
     chercherLesCommentaires();
-  }, []);
+  }, []);//JOur comme dependencie
 
   function ajouterUnCommentaire(){
     

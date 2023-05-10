@@ -1,4 +1,4 @@
-import { collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, setDoc, updateDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, orderBy, query,onSnapshot } from "firebase/firestore";
 import { bd, collComs, collImages, collUtilisateurs } from "./init";
 
     // lire une images
@@ -10,12 +10,31 @@ import { bd, collComs, collImages, collUtilisateurs } from "./init";
 
     //Commentaire
     
-    export async function lireLesCommentaires(idImage) {
-        const commsFS = await getDocs(collection(bd, collImages, idImage, collComs))
+    export async function lireLesCommentaires(jour) {
+        const commsFS = await getDocs(query(collection(bd, collImages, jour, collComs),
+        orderBy('timestamp', 'desc')))
         return commsFS.docs.map(doc => ({id: doc.id, ...doc.data()}))
         //console.log(commsFS.docs.map(doc => ({id: doc.id, ...doc.data()})));
     }
     // lireLesCommentaires('20230426')
+
+/**
+ * Observer les commentaires en temps reel
+ */
+
+export function observer(jour, mutateurCommentaires){
+    return onSnapshot(
+        query(
+            collection(bd, collImages, jour, collComs),
+            orderBy('timestamp', 'desc')
+        ),
+        resultat => {
+            const commsFS = resultat.docs.map(doc => ({id: doc.id, ...doc.data()}))
+            mutateurCommentaires(commsFS)
+        }
+    )
+
+}
 
     //INSPIRATION
     // const dossiersFS = await getDocs(

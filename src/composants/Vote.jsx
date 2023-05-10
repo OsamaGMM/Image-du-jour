@@ -2,23 +2,29 @@ import { useState } from 'react';
 import './Vote.scss'
 import { useEffect } from 'react';
 
-function Vote(votes) {
+function Vote({votes}) {
   
-  const [lesVotes, setLesVotes] = useState(0)
+  //peut etre utile
+  const [lesVotes, setLesVotes] = useState([])
 
-  console.log("cisnvasncosa",Object.values(votes));
+  //console.log(calculerVote(Object.values(votes)).positif);
 
-  const votesCalc = Object.values(votes).reduce((acc, curr) => acc + curr.idUtil, 0);
-  //(valInitiale, eltSuivant) => valInitiale + eltSuivant.qte,0
-  console.log("vote calc",votesCalc);
-
-  useEffect(()=>{
-    setLesVotes(votesCalc)
-  },[votesCalc])
+  function calculerVote(votesComms){
+    //console.log("vote commms ", votesComms);
+    return votesComms.reduce((acc, val) => {
+      if (val > 0) {
+        acc.positif++;
+      } else if (val < 0) {
+        acc.negatif++;
+      }
+      return acc;
+    }, { positif: 0, negatif: 0 });
+  }
 
   return (
     <div>
-      <p>{lesVotes}</p>
+      <span>&#128077; : {calculerVote(Object.values(votes)).positif}</span>
+      <span>&#128078; : {calculerVote(Object.values(votes)).negatif}</span>
     </div>
   )
 }

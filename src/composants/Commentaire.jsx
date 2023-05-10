@@ -4,8 +4,6 @@ import './Commentaire.scss'
 
 function Commentaire({id, texte, nomUtil, votes}) {
 
-  // console.log(vote);
-  
   return (
     <div>
       <p>{nomUtil}</p>
