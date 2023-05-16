@@ -1,35 +1,41 @@
 import { useContext, useEffect, useState } from "react"
 import './ListeCommentaires.scss'
 import Commentaire from "./Commentaire"
-import { lireLesCommentaires, observer } from "../code/image-modele";
-import { UtilisateurContext } from "./Appli";
+import { creerCommentaire, lireLesCommentaires, observer } from "../code/image-modele";
+import { UtilisateurContext, JourContext } from "./Appli";
 
 function ListeCommentaires() {
   const utilisateur = useContext(UtilisateurContext)
+  const jour = useContext(JourContext)
 
   const [lesCommentaires, setLesCommentaires] = useState([])
 
 
     // //Mettre le jour en param
+    //Voir les changement des commentaires en temps reel
     // useEffect(() => {
     //   async function chercherLesCommentaires() {
-    //     observer('20230508', setLesCommentaires)
+    //     observer(jour, setLesCommentaires)
     //   }
     //   chercherLesCommentaires();
     // }, []);
 
   useEffect(() => {
     async function chercherLesCommentaires() {
-      const comms = await lireLesCommentaires("20230426");
+      const comms = await lireLesCommentaires(jour);
       //console.log(comms);
       setLesCommentaires(comms);
     }
     chercherLesCommentaires();
-  }, []);//JOur comme dependencie
+  }, [jour]);//Jour comme dependencie
 
-  function ajouterUnCommentaire(){
-    
+  //jour,idUtil, nomUtil,texte,timestamp,vote? un map ->[idUil: 0]
+  async function ajouterUnCommentaire(jour,idUtil,nomUtil,texte,timestamp,votes){
+    const commData = {idUtil,nomUtil,texte,timestamp,votes}
+    const idComm = await creerCommentaire(jour, commData);
+    setLesCommentaires([...lesCommentaires,{id : idComm, ...commData}])
   }
+
 
   return (
     <div className="ListeCommentaires">
@@ -37,7 +43,10 @@ function ListeCommentaires() {
         //Son propre component eventuellement
         utilisateur ? 
 
-        <div className="ajouterComm" style={{border : 'solid 1px red'}}>
+        <div className="ajouterComm">
+
+          <button onClick={() => ajouterUnCommentaire('20230426',utilisateur.uid,utilisateur.displayName,'blablabla','321532532153',{})}>AJOUTER COMMENTAIRE</button>
+
           <p>{utilisateur.displayName}</p>
           <form action="" onSubmit={ajouterUnCommentaire}>
             <input type="text" />

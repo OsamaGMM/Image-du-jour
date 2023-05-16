@@ -1,7 +1,12 @@
 .Aime{
     border: 1px black solid;
     border-radius: 10px;
+    cursor: pointer;
     &.Aime > *{
         padding: 0px 4px;
     }
+}
+
+.estAime{
+    background-color: red;
 }

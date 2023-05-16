@@ -8,35 +8,42 @@ import Utilisateur from './Utilisateur';
 import { lireUneImage } from "../code/image-modele";
 import { createContext, useEffect, useState } from "react";
 import { observerEtatConnexion } from "../code/utilisateur-modele";
+import { generer } from "../code/admin";
+import { formaterDateNumerique } from "../code/util";
 export const UtilisateurContext = createContext(null);
+export const JourContext = createContext(null);
 
 
 export default function Appli() {
-  //usecontext pour utilisateur
 
+  const jour = (formaterDateNumerique(new Date()))
   const [utilisateur, setUtilisateur] = useState(null);
 
   useEffect(
       () => observerEtatConnexion(setUtilisateur),
       []
   );
+
+  console.log(jour);
   
-  //usecontext pour le jour
+
   const [imageDJ, setImageDJ] = useState([]);
 
   useEffect(() => {
     async function chercherIdj() {
-      const idj = await lireUneImage("20230426");
+      const idj = await lireUneImage(jour);
       setImageDJ(idj);
     }
     chercherIdj();
-  }, []);
+  }, [jour]);
   //console.log(imageDJ);
 
   return (
 
     <div className="Appli">
+      {/* <button onClick={generer}>generer</button> */}
     <UtilisateurContext.Provider value={utilisateur}>
+      <JourContext.Provider value={jour}>
       {
         //Si il un utilisateur est connecter on montre ce component sinon on montre la connexion
         utilisateur ?
@@ -50,7 +57,7 @@ export default function Appli() {
           <div className="image"><img src={image.url} alt={image.description} /></div>
           <div className="img-info">
             <span>{image.description}</span>
-            <Aime aimes={image.jaime.length}/>
+            <Aime aimes={image.aime}/>
             <span>{image.date}</span>
           </div>
         </div>
@@ -59,6 +66,7 @@ export default function Appli() {
       <ListeCommentaires/>
 
 
+      </JourContext.Provider>
 
     </UtilisateurContext.Provider>
     </div>

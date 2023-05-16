@@ -1,27 +1,26 @@
 import './Aime.scss'
-import { useContext } from 'react';
-import { UtilisateurContext } from './Appli';
+import { useContext, useState } from 'react';
+import { JourContext, UtilisateurContext } from './Appli';
+import { modifierAimeIMG } from '../code/image-modele';
 
 function Aime({aimes}) {
-
   const utilisateur = useContext(UtilisateurContext)
+  const jour = useContext(JourContext)
 
-  function ajouterJaime(){
-    //Si l'utilisateur est connecter il peut like sinon un pop qui vien te connecter
-    //Verifier si l'utilisateur a deja liker aussi si il a liker il de-like &&
+  const [aime, setAime] = useState(aimes)
+  const estAime = aime.includes(utilisateur?.uid);
+
+  async function ajouterJaime(){
     if(utilisateur){
-      console.log('aime ajouter');
-      //avec array union
-
+      await modifierAimeIMG(jour, utilisateur.uid, setAime)
     }else{
       console.log('connecter vous pour liker la photo');
     }
   }
-
   return (
-    <div className='Aime' onClick={ajouterJaime}>
+    <div className={`Aime ${estAime ? 'estAime' : ''}`} onClick={ajouterJaime}>
         <span className="icone">&#128153;</span>
-        <span className='compte'>{aimes}</span>
+        <span className='compte'>{aime.length}</span>
     </div>
   )
 }

@@ -8,7 +8,7 @@ function Commentaire({id, texte, nomUtil, votes}) {
     <div>
       <p>{nomUtil}</p>
       <p>{texte}</p>
-      <Vote votes={votes}/>
+      <Vote idComm = {id} votes={votes}/>
     </div>
   )
 }
