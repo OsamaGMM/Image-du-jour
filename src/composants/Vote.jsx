@@ -6,7 +6,8 @@ import { JourContext, UtilisateurContext } from './Appli';
 
 function Vote({votes, idComm}) {
   //peut etre utile
-  const [lesVotes, setLesVotes] = useState([])
+  const [lesVotes, setLesVotes] = useState(Object.values(votes))
+  console.log("vndksjanvjsdav",lesVotes);
 
   const jour = useContext(JourContext)
   const utilisateur = useContext(UtilisateurContext)
@@ -14,7 +15,7 @@ function Vote({votes, idComm}) {
   //console.log(calculerVote(Object.values(votes)).positif);
 
   function calculerVote(votesComms){
-    //console.log("vote commms ", votesComms);
+    //console.log("vote commms ", votesComms);    
     return votesComms.reduce((acc, val) => {
       if (val > 0) {
         acc.positif++;
@@ -25,8 +26,10 @@ function Vote({votes, idComm}) {
     }, { positif: 0, negatif: 0 });
   }
 
-  function ajouterVote(vote){
-    modifierVote(jour, idComm, utilisateur.uid, vote)
+  async function ajouterVote(vote){
+    const nouveauVote = await modifierVote(jour, idComm, utilisateur.uid, vote)
+    setLesVotes(nouveauVote)
+    console.log(nouveauVote);
   }
 
   return (

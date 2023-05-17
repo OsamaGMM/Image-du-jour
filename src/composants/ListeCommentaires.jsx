@@ -45,11 +45,11 @@ function ListeCommentaires() {
 
         <div className="ajouterComm">
 
-          <button onClick={() => ajouterUnCommentaire('20230426',utilisateur.uid,utilisateur.displayName,'blablabla','321532532153',{})}>AJOUTER COMMENTAIRE</button>
 
           <p>{utilisateur.displayName}</p>
-          <form action="" onSubmit={ajouterUnCommentaire}>
+          <form id="ajouterComms" onSubmit={(jour,utilisateur.uid,utilisateur.displayName,'text','timestamp',{})}>
             <input type="text" />
+            <button type="submit" form="ajouterComms"></button>
           </form>
         </div>
         :

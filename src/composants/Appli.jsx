@@ -65,9 +65,7 @@ export default function Appli() {
 
       <ListeCommentaires/>
 
-
       </JourContext.Provider>
-
     </UtilisateurContext.Provider>
     </div>
   );

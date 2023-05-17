@@ -100,12 +100,12 @@ export async function modifierAimeIMG(jour, idUtil, mutateurAimes) {
     const refVote = doc(bd, collImages, jour, collComs, idComm)
     const voteSnapshot = await getDoc(refVote);
     const objVote = voteSnapshot.data().votes || {};
-    console.log(objVote);
+    //console.log(objVote);
     if (vote > 0) {
-        console.log('UPvote ajouter');
+        //console.log('UPvote ajouter');
         objVote[idUtil] = 1; // Add or update the desired key-value pair
       } else {
-        console.log('DOWNvote ajouter');
+        //console.log('DOWNvote ajouter');
         objVote[idUtil] = -1; // Add or update the desired key-value pair
       }
 
