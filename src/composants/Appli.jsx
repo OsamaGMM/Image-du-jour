@@ -24,7 +24,7 @@ export default function Appli() {
       []
   );
 
-  console.log(jour);
+  //console.log(jour);
   
 
   const [imageDJ, setImageDJ] = useState([]);

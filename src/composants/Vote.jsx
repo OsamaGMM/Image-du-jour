@@ -7,7 +7,7 @@ import { JourContext, UtilisateurContext } from './Appli';
 function Vote({votes, idComm}) {
   //peut etre utile
   const [lesVotes, setLesVotes] = useState(Object.values(votes))
-  console.log("vndksjanvjsdav",lesVotes);
+  //console.log("vndksjanvjsdav",lesVotes);
 
   const jour = useContext(JourContext)
   const utilisateur = useContext(UtilisateurContext)

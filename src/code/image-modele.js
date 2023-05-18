@@ -10,6 +10,7 @@ import {
   updateDoc,
   arrayUnion,
   arrayRemove,
+  deleteDoc,
 } from "firebase/firestore";
 import { bd, collComs, collImages, collUtilisateurs } from "./init";
 
@@ -59,8 +60,18 @@ export async function creerCommentaire(jour, infoComm) {
   const refComm = doc(collection(bd, collImages, jour, collComs));
   console.log(jour, infoComm);
   await setDoc(refComm, infoComm);
-  //return refComm.id
+  return refComm.id
 }
+export async function supprimerComm(jour, idCommentaire) {
+    const refComm = doc(bd, collImages, jour, collComs, idCommentaire);
+    await deleteDoc(refComm);
+}
+
+// supprimer un commentaire (INSPIRATION)
+// export async function supprimerCommentaire(jour,idUtil, idDossier) {
+//     const refDossier = doc(bd, collUtilisateurs, idUtil, collDossiers, idDossier);
+//     await deleteDoc(refDossier);
+// }
 
 //INSPIRATION
 // const dossiersFS = await getDocs(
@@ -115,8 +126,4 @@ export async function modifierAimeIMG(jour, idUtil, mutateurAimes) {
   }
 
 
-// supprimer un commentaire (INSPIRATION)
-// export async function supprimer(idUtil, idDossier) {
-//     const refDossier = doc(bd, collUtilisateurs, idUtil, collDossiers, idDossier);
-//     await deleteDoc(refDossier);
-// }
+
