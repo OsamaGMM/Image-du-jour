@@ -11,7 +11,7 @@ export function formaterDateNumerique(objDate){
 }
 /**
  * Formate un string en date JS
- * @param {String} objDate Date en string format : AAAAMMJJ
+ * @param {String} objDate : Date en string format : AAAAMMJJ
  * @returns {Date} Un objet date JS
  * 
  */
