@@ -3,6 +3,8 @@ import "./ControleDate.scss";
 
 function ControleDate({ jour, setJour }) {
 
+  const premierJour = '20230515'
+
   function dateAujourdhui() {
     setJour(formaterDateNumerique(new Date()));
   }
@@ -23,8 +25,7 @@ function ControleDate({ jour, setJour }) {
   }
 
   function premierDate() {
-    //impossible?
-    //confu?
+    setJour(premierJour)
   }
 
   return (
