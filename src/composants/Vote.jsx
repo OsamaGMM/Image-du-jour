@@ -1,6 +1,5 @@
 import { useContext, useState } from 'react';
 import './Vote.scss'
-import { useEffect } from 'react';
 import { modifierVote } from '../code/image-modele';
 import { JourContext, UtilisateurContext } from './Appli';
 

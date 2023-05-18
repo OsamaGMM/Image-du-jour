@@ -1,6 +1,6 @@
 import "./Appli.scss";
 import Aime from './Aime';
-//import ControleDate from './ControleDate';
+import ControleDate from './ControleDate';
 import Connexion from './Connexion';
 import ListeCommentaires from './ListeCommentaires';
 import Utilisateur from './Utilisateur';
@@ -16,16 +16,14 @@ export const JourContext = createContext(null);
 
 export default function Appli() {
 
-  const jour = (formaterDateNumerique(new Date()))
+  //const jour = (formaterDateNumerique(new Date()))
+  const [jour, setJour] = useState(formaterDateNumerique(new Date()))
   const [utilisateur, setUtilisateur] = useState(null);
 
   useEffect(
       () => observerEtatConnexion(setUtilisateur),
       []
   );
-
-  //console.log(jour);
-  
 
   const [imageDJ, setImageDJ] = useState([]);
 
@@ -58,12 +56,16 @@ export default function Appli() {
           <div className="img-info">
             <span>{image.description}</span>
             <Aime aimes={image.aime}/>
-            <span>{image.date}</span>
+            <span>{jour}</span>
           </div>
         </div>
       ))}
 
+      <ControleDate jour={jour} setJour={setJour}/>
+
+
       <ListeCommentaires/>
+
 
       </JourContext.Provider>
     </UtilisateurContext.Provider>

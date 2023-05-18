@@ -17,8 +17,7 @@ import { bd, collComs, collImages, collUtilisateurs } from "./init";
 // lire une images
 export async function lireUneImage(jour) {
   const idjFS = await getDoc(doc(bd, collImages, jour));
-  const date = new Date().toLocaleDateString("fr-CA", { dateStyle: "long" }); // Get the current date and format it as a string
-  return [{ ...idjFS.data(), date: date }];
+  return [{ ...idjFS.data()}];
 }
 
 /**
