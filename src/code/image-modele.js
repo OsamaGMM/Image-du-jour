@@ -21,20 +21,6 @@ export async function lireUneImage(jour) {
   return [{ ...idjFS.data(), date: date }];
 }
 
-//Commentaire
-
-export async function lireLesCommentaires(jour) {
-  const commsFS = await getDocs(
-    query(
-      collection(bd, collImages, jour, collComs),
-      orderBy("timestamp", "desc")
-    )
-  );
-  return commsFS.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  //console.log(commsFS.docs.map(doc => ({id: doc.id, ...doc.data()})));
-}
-// lireLesCommentaires('20230426')
-
 /**
  * Observer les commentaires en temps reel
  */
@@ -109,15 +95,15 @@ export async function modifierAimeIMG(jour, idUtil, mutateurAimes) {
 
   export async function modifierVote(jour, idComm, idUtil, vote) {
     const refVote = doc(bd, collImages, jour, collComs, idComm)
-    const voteSnapshot = await getDoc(refVote);
-    const objVote = voteSnapshot.data().votes || {};
+    const voteS = await getDoc(refVote);
+    const objVote = voteS.data().votes || {};
     //console.log(objVote);
     if (vote > 0) {
         //console.log('UPvote ajouter');
-        objVote[idUtil] = 1; // Add or update the desired key-value pair
+        objVote[idUtil] = 1; 
       } else {
         //console.log('DOWNvote ajouter');
-        objVote[idUtil] = -1; // Add or update the desired key-value pair
+        objVote[idUtil] = -1; 
       }
 
     await updateDoc(refVote, {

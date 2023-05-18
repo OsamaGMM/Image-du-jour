@@ -5,14 +5,15 @@ import { modifierVote } from '../code/image-modele';
 import { JourContext, UtilisateurContext } from './Appli';
 
 function Vote({votes, idComm}) {
-  //peut etre utile
-  const [lesVotes, setLesVotes] = useState(Object.values(votes))
-  //console.log("vndksjanvjsdav",lesVotes);
+  // CA FONCTIONNE MAIS JE COMPREND PAS?
+  const [lesVotes, setLesVotes] = useState(votes)
+  //j'ai pas besoin de d'utiliser la var lesVotes mais sa fonctionne quand meme?
+  //pourquoi?
+  // console.log("votes",votes);
+  // console.log("LES VOTES",lesVotes);
 
   const jour = useContext(JourContext)
   const utilisateur = useContext(UtilisateurContext)
-
-  //console.log(calculerVote(Object.values(votes)).positif);
 
   function calculerVote(votesComms){
     //console.log("vote commms ", votesComms);    
@@ -29,7 +30,6 @@ function Vote({votes, idComm}) {
   async function ajouterVote(vote){
     const nouveauVote = await modifierVote(jour, idComm, utilisateur.uid, vote)
     setLesVotes(nouveauVote)
-    console.log(nouveauVote);
   }
 
   return (

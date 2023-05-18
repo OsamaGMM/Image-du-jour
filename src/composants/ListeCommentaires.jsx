@@ -1,9 +1,8 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./ListeCommentaires.scss";
 import Commentaire from "./Commentaire";
 import {
   creerCommentaire,
-  lireLesCommentaires,
   observer,
 } from "../code/image-modele";
 import { UtilisateurContext, JourContext } from "./Appli";
@@ -13,7 +12,7 @@ function ListeCommentaires() {
   const jour = useContext(JourContext);
 
   const [lesCommentaires, setLesCommentaires] = useState([]);
-  const [commentText, setCommentText] = useState("");
+  const [commText, setCommText] = useState("");
 
   //Mettre le jour en param
   // Voir les changement des commentaires en temps reel
@@ -32,8 +31,8 @@ function ListeCommentaires() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    ajouterUnCommentaire(jour,utilisateur.uid,utilisateur.displayName,commentText,new Date().getTime().toString(),{});
-    setCommentText("");
+    ajouterUnCommentaire(jour,utilisateur.uid,utilisateur.displayName,commText,new Date().getTime().toString(),{});
+    setCommText("");
   }
 
   return (
@@ -47,8 +46,8 @@ function ListeCommentaires() {
             <form id="ajouterComms" onSubmit={handleSubmit}>
               <input
                 type="text"
-                value={commentText}
-                onChange={(e) => setCommentText(e.target.value)}
+                value={commText}
+                onChange={(e) => setCommText(e.target.value)}
               />
             </form>
           </div>
