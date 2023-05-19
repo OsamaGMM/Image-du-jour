@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import "./ListeCommentaires.scss";
 import Commentaire from "./Commentaire";
 import {
@@ -6,8 +6,10 @@ import {
   observer,
 } from "../code/image-modele";
 import { UtilisateurContext, JourContext } from "./Appli";
+import FormComm from '../UI-composants/Form'
 
-function ListeCommentaires({setAfficherComm}) {
+
+function ListeCommentaires({setAfficherComm, afficherComm}) {
   const utilisateur = useContext(UtilisateurContext);
   const jour = useContext(JourContext);
 
@@ -35,28 +37,44 @@ function ListeCommentaires({setAfficherComm}) {
     setCommText("");
   }
 
+  //Use effect pour fermer quand tu click en dehors du liste commentaire
+  const listeCommRef = useRef(null);
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (listeCommRef.current && !listeCommRef.current.contains(event.target)) {
+        setAfficherComm(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [setAfficherComm]);
+
   return (
-    <div className="ListeCommentaires">
-        <button onClick={() => setAfficherComm(false) }>X</button>
+    <div className={'ListeCommentaires'} ref={listeCommRef}>
       {
         //Son propre component eventuellement
         utilisateur ? (
           <div className="ajouterComm">
-            <p>{utilisateur.displayName}</p>
+          <button onClick={() => setAfficherComm(false) }>X</button>
 
-            <form id="ajouterComms" onSubmit={handleSubmit}>
-              <input
-                type="text"
-                value={commText}
-                onChange={(e) => setCommText(e.target.value)}
-              />
-            </form>
+            <FormComm
+            handleSubmit={handleSubmit}
+            commText={commText}
+            setCommText={setCommText}
+            ></FormComm>
           </div>
-        ) : (
+        )
+        : 
+        (
+          //A STYLERR
           <div>Connecter vous pour ecrire un commentaire</div>
         )
       }
-      <div className="lesCommentaire">
+      <div className="lesCommentaires">
         {lesCommentaires.length !== 0 ? (
           lesCommentaires.map((comm) => (
             <Commentaire

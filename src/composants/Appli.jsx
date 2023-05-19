@@ -21,6 +21,7 @@ export default function Appli() {
   const [utilisateur, setUtilisateur] = useState(null);
   const [afficherComm, setAfficherComm] = useState(false)
 
+
   useEffect(
       () => observerEtatConnexion(setUtilisateur),
       []
@@ -39,10 +40,12 @@ export default function Appli() {
 
   return (
 
-    <div className="Appli">
+    <div className="Appli" >
       {/* <button onClick={generer}>generer</button> */}
     <UtilisateurContext.Provider value={utilisateur}>
       <JourContext.Provider value={jour}>
+
+    <section className={`Tout ${afficherComm ? 'commAfficher' : ''}`}>
 
       {imageDJ.map((image) => (
         <div key={image.url} className="idj">
@@ -62,15 +65,17 @@ export default function Appli() {
         <Connexion/>
       }
 
-      <ControleDate jour={jour} setJour={setJour}/>
+      <ControleDate jour={jour} setJour={setJour} setAfficherComm={setAfficherComm} afficherComm={afficherComm} />
+
+      </section>
 
 
       {
         afficherComm ?
-          <ListeCommentaires setAfficherComm={setAfficherComm} />
+          <ListeCommentaires afficherComm={afficherComm} setAfficherComm={setAfficherComm}/>
           
         :
-        <button onClick={() => setAfficherComm(true) }>Afficher commentaire</button>
+        ''
       }
 
       </JourContext.Provider>

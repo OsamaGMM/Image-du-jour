@@ -1,6 +1,16 @@
 .Appli {
 height: 100vh;
 overflow: hidden;
+
+
+
+    @media (min-width : 768px) {
+      display: grid;
+      grid-template-columns: 65% 35%;
+      grid-template-rows: 1fr;
+  }
+  .Tout{
+
   .idj {
 
     .background-image {
@@ -24,3 +34,11 @@ overflow: hidden;
     }
   }
 }
+
+}
+
+.commAfficher{
+  grid-area: 1/1/2/2;
+  position: relative;
+}
+

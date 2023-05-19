@@ -1,7 +1,7 @@
 import { formaterDateNumerique, formaterDateString } from "../code/util";
 import "./ControleDate.scss";
 
-function ControleDate({ jour, setJour }) {
+function ControleDate({ jour, setJour, afficherComm, setAfficherComm }) {
 
   const premierJour = '20230515'
 
@@ -35,6 +35,9 @@ function ControleDate({ jour, setJour }) {
       <button onClick={() => dateDemain(jour)}>&#8594;</button>
       <button onClick={() => dateAujourdhui()}>&#8608;</button>
       <span className="">{jour}</span>
+
+      <button className="ouvrirComm" onClick={() => (!afficherComm) ? setAfficherComm(true) : setAfficherComm(false) }>Afficher commentaire</button>
+
     </div>
   );
 }
