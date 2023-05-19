@@ -29,11 +29,12 @@ function ControleDate({ jour, setJour }) {
   }
 
   return (
-    <div>
+    <div className="ControleDate">
       <button onClick={() => premierDate()}>&#8606;</button>
       <button onClick={() => dateHier(jour)}>&#8592;</button>
       <button onClick={() => dateDemain(jour)}>&#8594;</button>
       <button onClick={() => dateAujourdhui()}>&#8608;</button>
+      <span className="">{jour}</span>
     </div>
   );
 }

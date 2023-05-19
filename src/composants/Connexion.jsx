@@ -4,7 +4,7 @@ import { connexion } from '../code/utilisateur-modele';
 
 function Connexion() {
   return (
-    <div>
+    <div className='Connexion'>
       <button onClick={connexion} className='btn-google'>
 					<img src={btnGoogle} alt="Logo Google" />
 					Connexion avec Google

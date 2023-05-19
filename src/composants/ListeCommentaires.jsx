@@ -7,7 +7,7 @@ import {
 } from "../code/image-modele";
 import { UtilisateurContext, JourContext } from "./Appli";
 
-function ListeCommentaires() {
+function ListeCommentaires({setAfficherComm}) {
   const utilisateur = useContext(UtilisateurContext);
   const jour = useContext(JourContext);
 
@@ -37,6 +37,7 @@ function ListeCommentaires() {
 
   return (
     <div className="ListeCommentaires">
+        <button onClick={() => setAfficherComm(false) }>X</button>
       {
         //Son propre component eventuellement
         utilisateur ? (

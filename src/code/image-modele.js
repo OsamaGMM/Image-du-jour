@@ -96,18 +96,19 @@ export async function modifierAimeIMG(jour, idUtil, mutateurAimes) {
     const refVote = doc(bd, collImages, jour, collComs, idComm)
     const voteS = await getDoc(refVote);
     const objVote = voteS.data().votes || {};
-    //console.log(objVote);
-    if (vote > 0) {
-        //console.log('UPvote ajouter');
-        objVote[idUtil] = 1; 
-      } else {
-        //console.log('DOWNvote ajouter');
-        objVote[idUtil] = -1; 
-      }
+    console.log(objVote);
+    
+    // --> https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/in
+    // --> https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/delete
+    //Si le idUtil est dedans et que valeur du vote recu est la meme on enleve le vote
+    if (idUtil in objVote && objVote[idUtil] === vote) {
+      delete objVote[idUtil];
+    }else {
+      const nouvVote = vote > 0 ? 1 : -1;
+      objVote[idUtil] = nouvVote;
+    }
 
-    await updateDoc(refVote, {
-        votes: objVote, // Provide the updated map object
-      });
+    await updateDoc(refVote, {votes: objVote});
   }
 
 

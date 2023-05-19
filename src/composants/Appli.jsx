@@ -19,6 +19,7 @@ export default function Appli() {
   //const jour = (formaterDateNumerique(new Date()))
   const [jour, setJour] = useState(formaterDateNumerique(new Date()))
   const [utilisateur, setUtilisateur] = useState(null);
+  const [afficherComm, setAfficherComm] = useState(false)
 
   useEffect(
       () => observerEtatConnexion(setUtilisateur),
@@ -42,6 +43,17 @@ export default function Appli() {
       {/* <button onClick={generer}>generer</button> */}
     <UtilisateurContext.Provider value={utilisateur}>
       <JourContext.Provider value={jour}>
+
+      {imageDJ.map((image) => (
+        <div key={image.url} className="idj">
+          <div className="background-image" style={{ backgroundImage: `url(${image.url})` }}></div>
+          <div className="img-info">
+            <span className="desc">{image.description}</span>
+            <Aime aimes={image.aime}/>
+          </div>
+        </div>
+      ))}
+
       {
         //Si il un utilisateur est connecter on montre ce component sinon on montre la connexion
         utilisateur ?
@@ -50,22 +62,16 @@ export default function Appli() {
         <Connexion/>
       }
 
-      {imageDJ.map((image) => (
-        <div key={image.url} className="idj">
-          <div className="image"><img src={image.url} alt={image.description} /></div>
-          <div className="img-info">
-            <span>{image.description}</span>
-            <Aime aimes={image.aime}/>
-            <span>{jour}</span>
-          </div>
-        </div>
-      ))}
-
       <ControleDate jour={jour} setJour={setJour}/>
 
 
-      <ListeCommentaires/>
-
+      {
+        afficherComm ?
+          <ListeCommentaires setAfficherComm={setAfficherComm} />
+          
+        :
+        <button onClick={() => setAfficherComm(true) }>Afficher commentaire</button>
+      }
 
       </JourContext.Provider>
     </UtilisateurContext.Provider>
