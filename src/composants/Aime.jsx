@@ -2,6 +2,8 @@ import './Aime.scss'
 import { useContext, useState } from 'react';
 import { JourContext, UtilisateurContext } from './Appli';
 import { modifierAimeIMG } from '../code/image-modele';
+import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 
 function Aime({aimes}) {
   const utilisateur = useContext(UtilisateurContext)
@@ -18,8 +20,15 @@ function Aime({aimes}) {
     }
   }
   return (
-    <div className={`Aime ${estAime ? 'estAime' : ''}`} onClick={ajouterJaime}>
-        <span className="icone">&#128153;</span>
+    <div className={'Aime'} onClick={ajouterJaime}>
+        <span className="icone">
+          {
+            estAime ?
+            <FavoriteOutlinedIcon color='error'/>
+            :
+            <FavoriteBorderOutlinedIcon/>
+          }
+        </span>
         <span className='compte'>{aime.length}</span>
     </div>
   )

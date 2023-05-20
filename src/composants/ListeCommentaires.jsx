@@ -1,15 +1,16 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import "./ListeCommentaires.scss";
 import Commentaire from "./Commentaire";
-import {
-  creerCommentaire,
-  observer,
-} from "../code/image-modele";
+import { creerCommentaire, observer } from "../code/image-modele";
 import { UtilisateurContext, JourContext } from "./Appli";
-import FormComm from '../UI-composants/Form'
+import FormComm from "../UI-composants/Form";
+import Button from "@mui/material/Button";
+import IconButton from '@mui/material/IconButton';
+
+import CommentsDisabledOutlinedIcon from '@mui/icons-material/CommentsDisabledOutlined';
 
 
-function ListeCommentaires({setAfficherComm, afficherComm}) {
+function ListeCommentaires({ setAfficherComm, afficherComm }) {
   const utilisateur = useContext(UtilisateurContext);
   const jour = useContext(JourContext);
 
@@ -20,12 +21,19 @@ function ListeCommentaires({setAfficherComm, afficherComm}) {
   // Voir les changement des commentaires en temps reel
   useEffect(() => {
     async function chercherLesCommentaires() {
-      observer(jour, setLesCommentaires)
+      observer(jour, setLesCommentaires);
     }
     chercherLesCommentaires();
   }, [jour]);
 
-  async function ajouterUnCommentaire(jour,idUtil,nomUtil,texte,timestamp,votes) {
+  async function ajouterUnCommentaire(
+    jour,
+    idUtil,
+    nomUtil,
+    texte,
+    timestamp,
+    votes
+  ) {
     const commData = { idUtil, nomUtil, texte, timestamp, votes };
     const idComm = await creerCommentaire(jour, commData);
     setLesCommentaires([...lesCommentaires, { id: idComm, ...commData }]);
@@ -33,7 +41,14 @@ function ListeCommentaires({setAfficherComm, afficherComm}) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    ajouterUnCommentaire(jour,utilisateur.uid,utilisateur.displayName,commText,new Date().getTime().toString(),{});
+    ajouterUnCommentaire(
+      jour,
+      utilisateur.uid,
+      utilisateur.displayName,
+      commText,
+      new Date().getTime().toString(),
+      {}
+    );
     setCommText("");
   }
 
@@ -41,35 +56,42 @@ function ListeCommentaires({setAfficherComm, afficherComm}) {
   const listeCommRef = useRef(null);
   useEffect(() => {
     function handleClickOutside(event) {
-      if (listeCommRef.current && !listeCommRef.current.contains(event.target)) {
+      if (
+        listeCommRef.current &&
+        !listeCommRef.current.contains(event.target)
+      ) {
         setAfficherComm(false);
       }
     }
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [setAfficherComm]);
 
   return (
-    <div className={'ListeCommentaires'} ref={listeCommRef}>
+    <div className={"ListeCommentaires"} ref={listeCommRef}>
       {
         //Son propre component eventuellement
         utilisateur ? (
           <div className="ajouterComm">
-          <button onClick={() => setAfficherComm(false) }>X</button>
+            <IconButton
+            className="fermerCommentaire"
+            variant="outlined"
+            size="small"
+             onClick={() => setAfficherComm(false)}>
+              <CommentsDisabledOutlinedIcon color="inherit"/>
+            </IconButton>
 
             <FormComm
-            handleSubmit={handleSubmit}
-            commText={commText}
-            setCommText={setCommText}
+              handleSubmit={handleSubmit}
+              commText={commText}
+              setCommText={setCommText}
             ></FormComm>
           </div>
-        )
-        : 
-        (
+        ) : (
           //A STYLERR
           <div>Connecter vous pour ecrire un commentaire</div>
         )
@@ -86,12 +108,9 @@ function ListeCommentaires({setAfficherComm, afficherComm}) {
               votes={comm.votes}
             />
           ))
-        )
-         :
-        (
+        ) : (
           <div>L'image n'a pas encore de commentaire</div>
-        )
-        }
+        )}
       </div>
     </div>
   );

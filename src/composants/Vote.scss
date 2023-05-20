@@ -1,5 +1,20 @@
 .Vote{
+    display: flex;
+    align-items: center;
     span{
         cursor: pointer;
+        padding-left: 8px;
+        display: flex;
+        align-items: center;
+        p{
+            padding-left: 3px;
+        }
+        &:nth-child(2){
+            p{
+                padding-bottom: 5px;
+
+            }
+        }
     }
+    
 }

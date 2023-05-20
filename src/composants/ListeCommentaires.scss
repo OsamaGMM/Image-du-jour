@@ -4,9 +4,8 @@
     right: 0;
     height: 100%;
     overflow-y: scroll;
-    overflow-y: hidden;
+    overflow-x: hidden;
     background-color:black;
-    color: white;
 
     animation: slide 200ms ease-in;
 
@@ -22,8 +21,14 @@
         z-index: 5;
         background-color: #b9c7cb;
         padding: 8px;
-    }
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        button{
+          align-self: flex-end;
+        }
 
+    }
 
     .lesCommentaires{
         height: 100%;
@@ -34,9 +39,6 @@
     }
 }
 
-.sortie{
-    animation: slide 200ms ease-in;
-}
 
 @keyframes slide {
     0% {
@@ -47,11 +49,3 @@
     }
   }
 
-  @keyframes slideSorti {
-    0% {
-      transform: translateX(0%);
-    }
-    100% {
-      transform: translateX(100%);
-    }
-  }

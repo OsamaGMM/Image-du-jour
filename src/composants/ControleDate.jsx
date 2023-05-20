@@ -1,9 +1,14 @@
 import { formaterDateNumerique, formaterDateString } from "../code/util";
 import "./ControleDate.scss";
+import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
+import KeyboardDoubleArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardDoubleArrowLeftOutlined';
+import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
+import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
+import KeyboardDoubleArrowRightOutlinedIcon from '@mui/icons-material/KeyboardDoubleArrowRightOutlined';
+import IconButton from '@mui/material/IconButton';
 
 function ControleDate({ jour, setJour, afficherComm, setAfficherComm }) {
-
-  const premierJour = '20230515'
+  const premierJour = "20230515";
 
   function dateAujourdhui() {
     setJour(formaterDateNumerique(new Date()));
@@ -11,33 +16,47 @@ function ControleDate({ jour, setJour, afficherComm, setAfficherComm }) {
 
   function dateHier(aujourdhui) {
     const nouvelleDate = formaterDateString(aujourdhui);
-    nouvelleDate.setDate(nouvelleDate.getDate() - 1);
+    //Peut pas reculer dans le temps pour sauver les Avengers
+    if(nouvelleDate.getDate() - 1 !== formaterDateString(premierJour).getDate() - 1){
+      nouvelleDate.setDate(nouvelleDate.getDate() - 1);
+    }
     setJour(formaterDateNumerique(nouvelleDate));
   }
 
   function dateDemain(aujourdhui) {
     const nouvelleDate = formaterDateString(aujourdhui);
     //On empeche l'utilisateur d'aller dans le future!
-    if (formaterDateNumerique(new Date()) !== formaterDateNumerique(nouvelleDate)) {
+    if (
+      formaterDateNumerique(new Date()) !== formaterDateNumerique(nouvelleDate)
+    ) {
       nouvelleDate.setDate(nouvelleDate.getDate() + 1);
     }
     setJour(formaterDateNumerique(nouvelleDate));
   }
 
   function premierDate() {
-    setJour(premierJour)
+    
+    setJour(premierJour);
   }
 
+  const dateDisplay = formaterDateString(jour).toLocaleDateString('fr-CA',{dateStyle : 'long'})
   return (
     <div className="ControleDate">
-      <button onClick={() => premierDate()}>&#8606;</button>
-      <button onClick={() => dateHier(jour)}>&#8592;</button>
-      <button onClick={() => dateDemain(jour)}>&#8594;</button>
-      <button onClick={() => dateAujourdhui()}>&#8608;</button>
-      <span className="">{jour}</span>
+      <span className="">{dateDisplay}</span>
 
-      <button className="ouvrirComm" onClick={() => (!afficherComm) ? setAfficherComm(true) : setAfficherComm(false) }>Afficher commentaire</button>
+      <IconButton size="large" color="inherit"  onClick={() => premierDate()}><KeyboardDoubleArrowLeftOutlinedIcon/></IconButton>
+      <IconButton size="large" color="inherit" onClick={() => dateHier(jour)}><KeyboardArrowLeftOutlinedIcon/></IconButton>
+      <IconButton size="large" color="inherit" onClick={() => dateDemain(jour)}><KeyboardArrowRightOutlinedIcon/></IconButton>
+      <IconButton size="large" color="inherit" onClick={() => dateAujourdhui()}><KeyboardDoubleArrowRightOutlinedIcon/></IconButton>
 
+      <IconButton
+        color="inherit"
+        onClick={() =>
+          !afficherComm ? setAfficherComm(true) : setAfficherComm(false)
+        }
+      >
+        <CommentOutlinedIcon />
+      </IconButton>
     </div>
   );
 }

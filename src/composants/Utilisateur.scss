@@ -1,4 +1,13 @@
 .Utilisateur{
     position: absolute;
     right: 0.5rem;
+    top: 1.5rem;
+
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 10rem;
+    background-color: black;
+    border: 1px solid white;
 }

@@ -1,9 +1,9 @@
 import "./Appli.scss";
-import Aime from './Aime';
-import ControleDate from './ControleDate';
-import Connexion from './Connexion';
-import ListeCommentaires from './ListeCommentaires';
-import Utilisateur from './Utilisateur';
+import Aime from "./Aime";
+import ControleDate from "./ControleDate";
+import Connexion from "./Connexion";
+import ListeCommentaires from "./ListeCommentaires";
+import Utilisateur from "./Utilisateur";
 //import imgTest from './imgTest.jpeg';
 import { lireUneImage } from "../code/image-modele";
 import { createContext, useEffect, useState } from "react";
@@ -13,19 +13,13 @@ import { formaterDateNumerique } from "../code/util";
 export const UtilisateurContext = createContext(null);
 export const JourContext = createContext(null);
 
-
 export default function Appli() {
-
   //const jour = (formaterDateNumerique(new Date()))
-  const [jour, setJour] = useState(formaterDateNumerique(new Date()))
+  const [jour, setJour] = useState(formaterDateNumerique(new Date()));
   const [utilisateur, setUtilisateur] = useState(null);
-  const [afficherComm, setAfficherComm] = useState(false)
+  const [afficherComm, setAfficherComm] = useState(false);
 
-
-  useEffect(
-      () => observerEtatConnexion(setUtilisateur),
-      []
-  );
+  useEffect(() => observerEtatConnexion(setUtilisateur), []);
 
   const [imageDJ, setImageDJ] = useState([]);
 
@@ -39,47 +33,49 @@ export default function Appli() {
   //console.log(imageDJ);
 
   return (
-
-    <div className="Appli" >
+    <div className="Appli">
       {/* <button onClick={generer}>generer</button> */}
-    <UtilisateurContext.Provider value={utilisateur}>
-      <JourContext.Provider value={jour}>
+      <UtilisateurContext.Provider value={utilisateur}>
+        <JourContext.Provider value={jour}>
+          <section className={`Tout ${afficherComm ? "commAfficher" : ""}`}>
+            {imageDJ.map((image) => (
+              <div key={image.url} className="idj">
+                <div
+                  className="background-image"
+                  style={{ backgroundImage: `url(${image.url})` }}
+                ></div>
+                <div className="img-info">
+                  <div className="infoContainer">
+                    <span className="desc"><p>{image.description}</p></span>
+                    <ControleDate
+                      jour={jour}
+                      setJour={setJour}
+                      setAfficherComm={setAfficherComm}
+                      afficherComm={afficherComm}
+                    />
+                  </div>
 
-    <section className={`Tout ${afficherComm ? 'commAfficher' : ''}`}>
+                  <Aime aimes={image.aime} />
+                </div>
+              </div>
+            ))}
 
-      {imageDJ.map((image) => (
-        <div key={image.url} className="idj">
-          <div className="background-image" style={{ backgroundImage: `url(${image.url})` }}></div>
-          <div className="img-info">
-            <span className="desc">{image.description}</span>
-            <Aime aimes={image.aime}/>
-          </div>
-        </div>
-      ))}
+            {
+              //Si il un utilisateur est connecter on montre ce component sinon on montre la connexion
+              utilisateur ? <Utilisateur /> : <Connexion />
+            }
+          </section>
 
-      {
-        //Si il un utilisateur est connecter on montre ce component sinon on montre la connexion
-        utilisateur ?
-          <Utilisateur/>
-        :
-        <Connexion/>
-      }
-
-      <ControleDate jour={jour} setJour={setJour} setAfficherComm={setAfficherComm} afficherComm={afficherComm} />
-
-      </section>
-
-
-      {
-        afficherComm ?
-          <ListeCommentaires afficherComm={afficherComm} setAfficherComm={setAfficherComm}/>
-          
-        :
-        ''
-      }
-
-      </JourContext.Provider>
-    </UtilisateurContext.Provider>
+          {afficherComm ? (
+            <ListeCommentaires
+              afficherComm={afficherComm}
+              setAfficherComm={setAfficherComm}
+            />
+          ) : (
+            ""
+          )}
+        </JourContext.Provider>
+      </UtilisateurContext.Provider>
     </div>
   );
 }

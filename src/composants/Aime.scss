@@ -2,7 +2,7 @@
     cursor: pointer;
     width: fit-content;
     font-size: 1.5rem;
-    border: 1px solid black;
+    border: 3px solid black;
     border-radius: 10px;
     padding: 0.5rem;
     
@@ -11,9 +11,15 @@
     left: 1.5rem;
 
     background-color: #b9c7cb;
-    color:white;
+    display: flex;
+    align-items: center;
+    span{
+        padding: 5px;
+    }
+    .icone{
+        display: flex;
+        align-items: center;
+    }
+
 }
 
-.estAime{
-    background-color: red;
-}

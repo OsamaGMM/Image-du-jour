@@ -92,12 +92,10 @@ export async function modifierAimeIMG(jour, idUtil, mutateurAimes) {
       });
   }
 
-  export async function modifierVote(jour, idComm, idUtil, vote) {
+  export async function modifierVote(jour, idComm, idUtil, vote, setAVote) {
     const refVote = doc(bd, collImages, jour, collComs, idComm)
     const voteS = await getDoc(refVote);
     const objVote = voteS.data().votes || {};
-    console.log(objVote);
-    
     // --> https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/in
     // --> https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/delete
     //Si le idUtil est dedans et que valeur du vote recu est la meme on enleve le vote
