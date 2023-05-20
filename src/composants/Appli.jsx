@@ -62,7 +62,7 @@ export default function Appli() {
 
             {
               //Si il un utilisateur est connecter on montre ce component sinon on montre la connexion
-              utilisateur ? <Utilisateur /> : <Connexion />
+              utilisateur ? <Utilisateur /> : <Connexion setAfficherComm={setAfficherComm} />
             }
           </section>
 

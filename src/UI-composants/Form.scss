@@ -5,7 +5,17 @@ textarea,
 button {
   all: unset;
   box-sizing: border-box;
+  
 }
+
+button{
+  &:hover{
+    transition: scale 300ms ease-in-out;
+    scale: 1.5;
+  }
+}
+
+
 
 .FormRoot {
 

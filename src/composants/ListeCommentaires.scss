@@ -37,7 +37,20 @@
         padding: 8px;
 
     }
+
+    .Tips{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 5rem;
+      background-color: #2e4dbd;
+      p,.fermerCommentaire{
+        padding: 5px;
+      }
+    }
 }
+
+
 
 
 @keyframes slide {

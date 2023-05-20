@@ -8,8 +8,8 @@ function Connexion() {
   return (
     <div className='Connexion'>
       <GoogleButton label='Connexion avec Google' onClick={connexion} className='btn-google'>
-					<img src={btnGoogle} alt="Logo Google" />
 				</GoogleButton>
+        
     </div>
   )
 }

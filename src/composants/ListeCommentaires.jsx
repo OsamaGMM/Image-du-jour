@@ -5,10 +5,14 @@ import { creerCommentaire, observer } from "../code/image-modele";
 import { UtilisateurContext, JourContext } from "./Appli";
 import FormComm from "../UI-composants/Form";
 import Button from "@mui/material/Button";
-import IconButton from '@mui/material/IconButton';
+import IconButton from "@mui/material/IconButton";
 
-import CommentsDisabledOutlinedIcon from '@mui/icons-material/CommentsDisabledOutlined';
-
+import CommentsDisabledOutlinedIcon from "@mui/icons-material/CommentsDisabledOutlined";
+import Connexion from "./Connexion";
+import { connexion } from "../code/utilisateur-modele";
+import GoogleButton from "react-google-button";
+import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined';
+import PriorityHighOutlinedIcon from '@mui/icons-material/PriorityHighOutlined';
 
 function ListeCommentaires({ setAfficherComm, afficherComm }) {
   const utilisateur = useContext(UtilisateurContext);
@@ -78,11 +82,12 @@ function ListeCommentaires({ setAfficherComm, afficherComm }) {
         utilisateur ? (
           <div className="ajouterComm">
             <IconButton
-            className="fermerCommentaire"
-            variant="outlined"
-            size="small"
-             onClick={() => setAfficherComm(false)}>
-              <CommentsDisabledOutlinedIcon color="inherit"/>
+              className="fermerCommentaire"
+              variant="outlined"
+              size="small"
+              onClick={() => setAfficherComm(false)}
+            >
+              <CommentsDisabledOutlinedIcon color="inherit" />
             </IconButton>
 
             <FormComm
@@ -92,8 +97,18 @@ function ListeCommentaires({ setAfficherComm, afficherComm }) {
             ></FormComm>
           </div>
         ) : (
-          //A STYLERR
-          <div>Connecter vous pour ecrire un commentaire</div>
+          <div className="Tips">
+            <ErrorOutlineOutlinedIcon/>
+            <p>Connecter vous pour ecrire un commentaire</p>
+            <IconButton
+              className="fermerCommentaire"
+              variant="outlined"
+              size="small"
+              onClick={() => setAfficherComm(false)}
+            >
+              <CommentsDisabledOutlinedIcon color="inherit" />
+            </IconButton>
+          </div>
         )
       }
       <div className="lesCommentaires">
@@ -109,7 +124,7 @@ function ListeCommentaires({ setAfficherComm, afficherComm }) {
             />
           ))
         ) : (
-          <div>L'image n'a pas encore de commentaire</div>
+          <div className="Tips">L'image n'a pas encore de commentaire</div>
         )}
       </div>
     </div>

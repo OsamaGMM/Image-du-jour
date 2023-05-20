@@ -13,6 +13,12 @@
     background-color: #b9c7cb;
     display: flex;
     align-items: center;
+
+
+    &:hover{
+    transition: scale 300ms ease-in-out;
+        scale: 1.2;
+    }
     span{
         padding: 5px;
     }
