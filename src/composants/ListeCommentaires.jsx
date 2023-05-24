@@ -4,25 +4,20 @@ import Commentaire from "./Commentaire";
 import { creerCommentaire, observer } from "../code/image-modele";
 import { UtilisateurContext, JourContext } from "./Appli";
 import FormComm from "../UI-composants/Form";
-import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 
-import CommentsDisabledOutlinedIcon from "@mui/icons-material/CommentsDisabledOutlined";
-import Connexion from "./Connexion";
-import { connexion } from "../code/utilisateur-modele";
-import GoogleButton from "react-google-button";
 import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined';
-import PriorityHighOutlinedIcon from '@mui/icons-material/PriorityHighOutlined';
+import CommentsDisabledOutlinedIcon from "@mui/icons-material/CommentsDisabledOutlined";
 
-function ListeCommentaires({ setAfficherComm, afficherComm }) {
+
+function ListeCommentaires({ setAfficherComm }) {
   const utilisateur = useContext(UtilisateurContext);
   const jour = useContext(JourContext);
-
+  // État pour les commentaires et le texte de l'utilisateur
   const [lesCommentaires, setLesCommentaires] = useState([]);
   const [commText, setCommText] = useState("");
 
-  //Mettre le jour en param
-  // Voir les changement des commentaires en temps reel
+  // Voir les changements des commentaires en temps réel et les chercher
   useEffect(() => {
     async function chercherLesCommentaires() {
       observer(jour, setLesCommentaires);
@@ -30,19 +25,14 @@ function ListeCommentaires({ setAfficherComm, afficherComm }) {
     chercherLesCommentaires();
   }, [jour]);
 
-  async function ajouterUnCommentaire(
-    jour,
-    idUtil,
-    nomUtil,
-    texte,
-    timestamp,
-    votes
-  ) {
+  // Fonction pour ajouter un commentaire
+  async function ajouterUnCommentaire(jour,idUtil,nomUtil,texte,timestamp,votes) {
     const commData = { idUtil, nomUtil, texte, timestamp, votes };
     const idComm = await creerCommentaire(jour, commData);
     setLesCommentaires([...lesCommentaires, { id: idComm, ...commData }]);
   }
 
+  // Fonction pour gérer la soumissions du Form
   function handleSubmit(e) {
     e.preventDefault();
     ajouterUnCommentaire(
@@ -53,6 +43,7 @@ function ListeCommentaires({ setAfficherComm, afficherComm }) {
       new Date().getTime().toString(),
       {}
     );
+    // on remet une chaîne de caractères vide 
     setCommText("");
   }
 
@@ -67,9 +58,7 @@ function ListeCommentaires({ setAfficherComm, afficherComm }) {
         setAfficherComm(false);
       }
     }
-
     document.addEventListener("mousedown", handleClickOutside);
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };

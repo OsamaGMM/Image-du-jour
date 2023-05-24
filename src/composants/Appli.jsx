@@ -4,25 +4,26 @@ import ControleDate from "./ControleDate";
 import Connexion from "./Connexion";
 import ListeCommentaires from "./ListeCommentaires";
 import Utilisateur from "./Utilisateur";
-//import imgTest from './imgTest.jpeg';
 import { lireUneImage } from "../code/image-modele";
 import { createContext, useEffect, useState } from "react";
 import { observerEtatConnexion } from "../code/utilisateur-modele";
-import { generer } from "../code/admin";
+// import { generer } from "../code/admin";
 import { formaterDateNumerique } from "../code/util";
 export const UtilisateurContext = createContext(null);
 export const JourContext = createContext(null);
 
 export default function Appli() {
-  //const jour = (formaterDateNumerique(new Date()))
+  //État pour le jour, utilisateur et afficher les commentaires
   const [jour, setJour] = useState(formaterDateNumerique(new Date()));
   const [utilisateur, setUtilisateur] = useState(null);
   const [afficherComm, setAfficherComm] = useState(false);
 
+  //Observe l'État de l'utilisateur
   useEffect(() => observerEtatConnexion(setUtilisateur), []);
 
+  //État de l'image et 
+  // useEffect pour aller la chercher quand la page load
   const [imageDJ, setImageDJ] = useState([]);
-
   useEffect(() => {
     async function chercherIdj() {
       const idj = await lireUneImage(jour);
@@ -30,7 +31,6 @@ export default function Appli() {
     }
     chercherIdj();
   }, [jour]);
-  //console.log(imageDJ);
 
   return (
     <div className="Appli">

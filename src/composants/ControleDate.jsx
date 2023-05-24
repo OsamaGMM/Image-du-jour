@@ -8,34 +8,36 @@ import KeyboardDoubleArrowRightOutlinedIcon from '@mui/icons-material/KeyboardDo
 import IconButton from '@mui/material/IconButton';
 
 function ControleDate({ jour, setJour, afficherComm, setAfficherComm }) {
-  const premierJour = "20230515";
+  //Limite de la date
+  const premierJour = "20230523";
 
+  // Fonction pour retourner au présent
   function dateAujourdhui() {
     setJour(formaterDateNumerique(new Date()));
   }
 
+  // Fonction pour reculer d'un jour
   function dateHier(aujourdhui) {
     const nouvelleDate = formaterDateString(aujourdhui);
-    //Peut pas reculer dans le temps pour sauver les Avengers
+    //Empêche de reculer dans le temps pour sauver les Avengers
     if(nouvelleDate.getDate() - 1 !== formaterDateString(premierJour).getDate() - 1){
       nouvelleDate.setDate(nouvelleDate.getDate() - 1);
     }
     setJour(formaterDateNumerique(nouvelleDate));
   }
 
+  // Fonction pour avancer d'un jour
   function dateDemain(aujourdhui) {
     const nouvelleDate = formaterDateString(aujourdhui);
-    //On empeche l'utilisateur d'aller dans le future!
-    if (
-      formaterDateNumerique(new Date()) !== formaterDateNumerique(nouvelleDate)
-    ) {
+    //On empêche l'utilisateur d'aller dans le future!
+    if (formaterDateNumerique(new Date()) !== formaterDateNumerique(nouvelleDate)) {
       nouvelleDate.setDate(nouvelleDate.getDate() + 1);
     }
     setJour(formaterDateNumerique(nouvelleDate));
   }
 
+  // Fonction pour reculer au premier jour
   function premierDate() {
-    
     setJour(premierJour);
   }
 

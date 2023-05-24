@@ -8,14 +8,16 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import { ToastContainer } from "react-toastify";
 
 function Aime({ aimes }) {
+  //Context pour l'utilisateur et le jour
   const utilisateur = useContext(UtilisateurContext);
   const jour = useContext(JourContext);
-
+  //État pour gérer les Toast
   const [showToast, setShowToast] = useState(false);
-
+  //État pour gérer les aimes
   const [aime, setAime] = useState(aimes);
   const estAime = aime.includes(utilisateur?.uid);
 
+  //Fonction pour ajouter un aime sur une image
   async function ajouterJaime() {
     if (utilisateur) {
       await modifierAimeIMG(jour, utilisateur.uid, setAime);
@@ -38,6 +40,7 @@ function Aime({ aimes }) {
 
 
     </div><section>
+      {/* Toast */}
         <ToastContainer
           position="top-center"
           autoClose={2000}
@@ -49,8 +52,6 @@ function Aime({ aimes }) {
           draggable
           pauseOnHover
           theme="dark" />
-
-
         {<Toast showToast={showToast}/>}
       </section></>
     

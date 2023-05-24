@@ -18,8 +18,8 @@ import { loremIpsum } from "lorem-ipsum";
 const nomDossierStorage = 'photos';
 
 // Date de début et de fin pour les images à générer (premier jour et dernier jour)
-const debut = new Date(2023, 4, 15); // 15 mai 2023
-const fin = new Date(2023, 4, 24); // 24 mai 2023
+const debut = new Date(2023, 4, 24); // 15 mai 2023
+const fin = new Date(2023, 5, 30); // 24 mai 2023
 
 // Utilisateurs
 const nbUtilisateurs = 200;

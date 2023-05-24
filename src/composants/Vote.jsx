@@ -2,25 +2,19 @@ import { useContext, useState } from "react";
 import "./Vote.scss";
 import { modifierVote } from "../code/image-modele";
 import { JourContext, UtilisateurContext } from "./Appli";
-import ThumbUpAltRoundedIcon from "@mui/icons-material/ThumbUpAltRounded";
-import ThumbDownAltRoundedIcon from "@mui/icons-material/ThumbDownAltRounded";
 import ThumbDownOffAltRoundedIcon from '@mui/icons-material/ThumbDownOffAltRounded';
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
 
 function Vote({ votes, idComm }) {
-  // CA FONCTIONNE MAIS JE COMPREND PAS?
+  // Updater à cause que les commentaires sont observer en tout temps
   const [lesVotes, setLesVotes] = useState(votes);
-  //j'ai pas besoin de d'utiliser la var lesVotes mais sa fonctionne quand meme?
-  //pourquoi?
-  // console.log("votes",votes);
-  // console.log("LES VOTES",lesVotes);
 
-
+  // Contexte pour le jour et utilisateur 
   const jour = useContext(JourContext);
   const utilisateur = useContext(UtilisateurContext);
 
+  // Fonction pour calculer le nombre de up et down votes d'un commentaire
   function calculerVote(votesComms) {
-    //console.log("vote commms ", votesComms);
     return votesComms.reduce(
       (acc, val) => {
         if (val > 0) {
@@ -34,6 +28,7 @@ function Vote({ votes, idComm }) {
     );
   }
 
+  // Fonction pour ajouter un vote
   async function ajouterVote(vote) {
     const nouveauVote = await modifierVote(jour, idComm, utilisateur.uid, vote);
     setLesVotes(nouveauVote);

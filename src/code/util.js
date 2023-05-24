@@ -11,11 +11,9 @@ export function formaterDateNumerique(objDate){
 }
 /**
  * Formate un string en date JS
- * @param {String} objDate : Date en string format : AAAAMMJJ
+ * @param {String} dateString : Date en string format : AAAAMMJJ
  * @returns {Date} Un objet date JS
- * 
  */
-
 export function formaterDateString(dateString) {
     const annee = dateString.slice(0, 4);
     const mois = dateString.slice(4, 6) - 1;

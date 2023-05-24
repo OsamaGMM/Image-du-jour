@@ -4,7 +4,6 @@ import { deconnexion } from '../code/utilisateur-modele'
 import { UtilisateurContext } from './Appli'
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 
-
 function Utilisateur() {
 
   const utilisateur = useContext(UtilisateurContext)
