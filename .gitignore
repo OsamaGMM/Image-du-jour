@@ -6,6 +6,11 @@
 # Ignorer .eslintcache
 .eslintcache
 
+#Ignorer tout ce qui est firebase
+.fire*
+fire*
+storage.rules
+
 # dependencies
 /node_modules
 /.pnp
