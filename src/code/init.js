@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
-import firebaseConfig from "./fb-config";
+import firebaseConfig from "./fb-config1";
 import { getStorage } from "firebase/storage";
 
 // Initialiser l'appli Firebase
