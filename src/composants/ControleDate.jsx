@@ -9,7 +9,7 @@ import IconButton from '@mui/material/IconButton';
 
 function ControleDate({ jour, setJour, afficherComm, setAfficherComm }) {
   //Limite de la date
-  const premierJour = "20230523";
+  const premierJour = "20230929";
 
   // Fonction pour retourner au présent
   function dateAujourdhui() {

@@ -14,7 +14,7 @@ function Aime({ aimes }) {
   //État pour gérer les Toast
   const [showToast, setShowToast] = useState(false);
   //État pour gérer les aimes
-  const [aime, setAime] = useState(aimes);
+  const [aime, setAime] = useState(aimes || []);
   const estAime = aime.includes(utilisateur?.uid);
 
   //Fonction pour ajouter un aime sur une image
